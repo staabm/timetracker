@@ -17,7 +17,7 @@ It can easily handle small teams, it's really fast and most important, you can c
 
 ## Usage
 ### Requirements
-you need the "pcntl" extension enabled
+you need PHP >= 7.0 and the "pcntl" extension enabled
 
 ### Installation
 ```
@@ -83,7 +83,7 @@ Warning: Use "\n" as LF!
 * make stats usable from CLI
 * Better readme
 * UnitTests
-* Add typcial code quality tools (phpcs, phpmd, ...)
+* ~~Add typcial code quality tools (phpcs, phpmd, ...)~~
 * Add travis CI
 * Final cleanup and refactoring
 * Start implementing new features 
