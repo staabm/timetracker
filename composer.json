@@ -1,0 +1,34 @@
+{
+  "name": "stahlstift/timetracker",
+  "description": "TimeTracker is an ultra simple time tracking tool with no deps and made to live as a require-dev in your project.",
+  "keywords": [
+    "time",
+    "tracking"
+  ],
+  "license": "GPL3",
+  "authors": [
+    {
+      "name": "Markus Oskar Lanz",
+      "email": "stahlstift@gmail.com"
+    }
+  ],
+  "bin": [
+    "bin/track.php"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Stahlstift\\TimeTracker\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Stahlstift\\TimeTrackerTest\\": "test/"
+    }
+  },
+  "require": {
+    "ext-pcntl": "*"
+  },
+  "config": {
+    "bin-compat": "auto"
+  }
+}
