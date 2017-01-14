@@ -61,14 +61,14 @@ class TimeTracker
         $regex = '';
 
         if ($year) {
+            $regex = $year . '-\d{1,2}-\d{1,2}';
+            $headline = sprintf($headline, $year);
+
             if ($month) {
                 $regex = $year . '-' . sprintf('%02d', $month) . '-\d{1,2}';
                 $date = DateTime::createFromFormat('!m', (string)$month);
                 $monthName = $date->format('F');
                 $headline = sprintf($headline, $monthName, $year);
-            } else {
-                $regex = $year . '-\d{1,2}-\d{1,2}';
-                $headline = sprintf($headline, $year);
             }
         }
 
@@ -108,7 +108,7 @@ class TimeTracker
         // arsort($data);
 
         $rows = [];
-        $rows[] = new TableRow(true, 'Username', 'Time');;
+        $rows[] = new TableRow(true, 'Username', 'Time');
 
         foreach ($data as $user => $seconds) {
             $duration = new Duration($seconds);
@@ -143,14 +143,14 @@ class TimeTracker
         ksort($data);
 
         $rows = [];
-        $rows[] = new TableRow(true, 'Username', 'Ticket', 'Time');;
+        $rows[] = new TableRow(true, 'Username', 'Ticket', 'Time');
 
         foreach ($data as $user => $tmp) {
             $rows[] = new TableRow(false, $user, '', '');
 
             foreach ($tmp as $ticket => $seconds) {
                 $duration = new Duration($seconds);
-                $rows[] = new TableRow(false, '', $ticket, $duration->getTimeString());;
+                $rows[] = new TableRow(false, '', $ticket, $duration->getTimeString());
             }
         }
 
@@ -163,14 +163,14 @@ class TimeTracker
      */
     public function showOverviewPerUser(int $year = 0, int $month = 0)
     {
+        $headline = "Overview";
         if ($year) {
             $headline = "Overview for %d";
             if ($month) {
                 $headline = "Overview for %s in %d";
             }
-        } else {
-            $headline = "Overview";
         }
+
         $this->show($headline, 2, $year, $month);
     }
 
@@ -180,14 +180,14 @@ class TimeTracker
      */
     public function showOverviewPerUserAndTicket(int $year = 0, int $month = 0)
     {
+        $headline = "Overview";
         if ($year) {
             $headline = "Overview for %d";
             if ($month) {
                 $headline = "Overview for %s in %d";
             }
-        } else {
-            $headline = "Overview";
         }
+
         $this->show($headline, 3, $year, $month);
     }
 
@@ -198,14 +198,14 @@ class TimeTracker
      */
     public function showTotalForUser(string $username, int $year = 0, int $month = 0)
     {
+        $headline = "Total for '$username'";
         if ($year) {
             $headline = "Total for '$username' in %d";
             if ($month) {
                 $headline = "Total for '$username' in %s in %d";
             }
-        } else {
-            $headline = "Total for '$username'";
         }
+
         $this->show($headline, 2, $year, $month, $username);
     }
 
@@ -216,14 +216,15 @@ class TimeTracker
      */
     public function showOverviewForUserPerTicket(string $username, int $year = 0, int $month = 0)
     {
+        $headline = "Overview for '$username'";
+
         if ($year) {
             $headline = "Overview for '$username' in %d";
             if ($month) {
                 $headline = "Overview for '$username' in %s in %d";
             }
-        } else {
-            $headline = "Overview for '$username'";
         }
+
         $this->show($headline, 3, $year, $month, $username);
     }
 
@@ -237,5 +238,4 @@ class TimeTracker
     {
         $this->parser->track($user, $ticket, $duration, $date);
     }
-
 }

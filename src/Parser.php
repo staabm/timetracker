@@ -3,8 +3,7 @@ declare(strict_types = 1);
 
 namespace Stahlstift\TimeTracker;
 
-use DateTimeImmutable;
-use Generator;
+use DateTimeInterface;
 use Traversable;
 
 class Parser
@@ -44,9 +43,9 @@ class Parser
      * @param string $username
      * @param string $ticket
      * @param int $durationInSeconds
-     * @param DateTimeImmutable $date
+     * @param DateTimeInterface $date
      */
-    public function track(string $username, string $ticket, int $durationInSeconds, DateTimeImmutable $date)
+    public function track(string $username, string $ticket, int $durationInSeconds, DateTimeInterface $date)
     {
         $dataset = [
             $date->format('Y-m-d'),
@@ -63,9 +62,9 @@ class Parser
      * @param string $ticketFilter
      * @param string $dateFilter
      *
-     * @return Generator
+     * @return Traversable
      */
-    public function filter(string $userfilter = '', string $ticketFilter = '', string $dateFilter = ''): Generator
+    public function filter(string $userfilter = '', string $ticketFilter = '', string $dateFilter = ''): Traversable
     {
         $readLineFile = function (string $path) {
             $handle = fopen($path, 'r');
@@ -99,5 +98,4 @@ class Parser
 
         return $regexFilter($readLineFile($this->dbPath), $regEx);
     }
-
 }

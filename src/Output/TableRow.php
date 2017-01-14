@@ -50,5 +50,4 @@ class TableRow
     {
         return $this->isHead;
     }
-
 }

@@ -114,5 +114,4 @@ class Console
         $this->printText($text);
         $this->nextLine();
     }
-
 }
