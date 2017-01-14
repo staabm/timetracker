@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Stahlstift\TimeTracker;
 
-use Stahlstift\TimeTracker\Output\Console;
+use Stahlstift\TimeTracker\Renderer\Console;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 

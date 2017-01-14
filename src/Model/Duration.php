@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Stahlstift\TimeTracker;
+namespace Stahlstift\TimeTracker\Model;
 
 class Duration
 {

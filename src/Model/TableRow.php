@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Stahlstift\TimeTracker\Output;
+namespace Stahlstift\TimeTracker\Model;
 
 class TableRow
 {
@@ -20,11 +20,8 @@ class TableRow
      */
     public function __construct(bool $isHead, string ...$text)
     {
-
         $this->isHead = $isHead;
-        foreach ($text as $t) {
-            $this->columns[] = $t;
-        }
+        array_push($this->columns, ...$text);
     }
 
     /**

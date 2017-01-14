@@ -5,8 +5,9 @@ namespace Stahlstift\TimeTracker;
 
 use DateTime;
 use DateTimeInterface;
-use Stahlstift\TimeTracker\Output\Console;
-use Stahlstift\TimeTracker\Output\TableRow;
+use Stahlstift\TimeTracker\Model\Duration;
+use Stahlstift\TimeTracker\Model\TableRow;
+use Stahlstift\TimeTracker\Renderer\Renderer;
 
 class TimeTracker
 {
@@ -15,31 +16,18 @@ class TimeTracker
      */
     private $parser = null;
     /**
-     * @var Console
+     * @var Renderer
      */
-    private $console = null;
+    private $renderer = null;
 
     /**
      * @param Parser $parser
-     * @param Console $console
+     * @param Renderer $renderer
      */
-    public function __construct(Parser $parser, Console $console)
+    public function __construct(Parser $parser, Renderer $renderer)
     {
         $this->parser = $parser;
-        $this->console = $console;
-    }
-
-    /**
-     * @param string $headline
-     * @param TableRow[] $rows
-     */
-    private function printResult(string $headline, array $rows)
-    {
-        $this->console->nextLine();
-        $this->console->printText($headline);
-        $this->console->nextLine();
-        $this->console->printTable($rows);
-        $this->console->nextLine();
+        $this->renderer = $renderer;
     }
 
     /**
@@ -61,14 +49,14 @@ class TimeTracker
         $regex = '';
 
         if ($year) {
-            $regex = $year . '-\d{1,2}-\d{1,2}';
-            $headline = sprintf($headline, $year);
-
             if ($month) {
                 $regex = $year . '-' . sprintf('%02d', $month) . '-\d{1,2}';
                 $date = DateTime::createFromFormat('!m', (string)$month);
                 $monthName = $date->format('F');
                 $headline = sprintf($headline, $monthName, $year);
+            } else {
+                $regex = $year . '-\d{1,2}-\d{1,2}';
+                $headline = sprintf($headline, $year);
             }
         }
 
@@ -93,7 +81,10 @@ class TimeTracker
     ) {
         $data = [];
         foreach ($this->parser->filter($username, $ticket, $regexForDate) as $line) {
-            list($dateString, $ticket, $user, $duration, $id) = explode(',', $line);
+            $tmp = explode(',', $line);
+            $user = $tmp[2];
+            $duration = $tmp[3];
+
             if (!isset($data[$user])) {
                 $data[$user] = 0;
             }
@@ -115,7 +106,7 @@ class TimeTracker
             $rows[] = new TableRow(false, $user, $duration->getTimeString());
         }
 
-        $this->printResult($headline, $rows);
+        $this->renderer->renderResult($headline, $rows);
     }
 
     /**
@@ -132,7 +123,11 @@ class TimeTracker
     ) {
         $data = [];
         foreach ($this->parser->filter($username, $ticket, $regexForDate) as $line) {
-            list($dateString, $ticket, $user, $duration, $id) = explode(',', $line);
+            $tmp = explode(',', $line);
+            $ticket = $tmp[1];
+            $user = $tmp[2];
+            $duration = $tmp[3];
+
             if (!isset($data[$user][$ticket])) {
                 $data[$user][$ticket] = 0;
             }
@@ -154,7 +149,7 @@ class TimeTracker
             }
         }
 
-        $this->printResult($headline, $rows);
+        $this->renderer->renderResult($headline, $rows);
     }
 
     /**
