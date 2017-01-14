@@ -7,30 +7,36 @@
  | '..7 6 5..' |     |_|  |_|_| |_| |_|\___|_|_|  \__,_|\___|_|\_\___|_|
   ~-----------~ 
 ```
-   
 TimeTracker is an ultra simple time tracking tool with no deps and made to live as a require-dev in your project.
 
 ## About
-For a new project I need to track my time investment. The existing tools are to heavy and/or to mighty for my needs.     
-I just want to be able to track my time in a fast and developer friendly way. So I came up with this solution.    
+For a new project I need to track my time investment. The existing tools are to heavy and/or are to mighty for my needs.     
+I just want to be able to track my time in a fast and dev friendly way. So I came up with this solution.    
 It can easily handle small teams, it's really fast and most important, you can commit it, because it can be merged by a vcs. 
 
 ## Usage
 ### Requirements
-you need PHP >= 7.0 and the "pcntl" extension enabled
+* PHP >= 7.0
+* pcntl extension
 
 ### Installation
 ```
-composer require-dev stahlstift/timetracker
+composer require-dev "stahlstift/timetracker"
 ```
+Ultra-Secret-Hint: 
+It's also possible to install it globally and use TimeTracker in every project - even non composer or php projects.  
+```
+composer global require "stahlstift/timetracker"
+```
+Caution: The command will then be just "track" and not "vendor/bin/track" 
 
 ### Time tracking
 ```
-vendor/bin/track.php username [ticket/project/whatever]
-```
+./vendor/bin/track time username [ticket/project/whatever]
 
-```
-./vendor/bin/track stahlstift tracker_unittest
+Example:
+
+./vendor/bin/track time stahlstift tracker_unittest
 Tracking started for 'stahlstift' with ticket 'tracker_unittest'
 ............... 15 ............... 15 ............... 15 ............... 60
 ........
@@ -43,7 +49,8 @@ Press ctrl + c when done to write tracking
 
 ### Stats
 ```
-implemented but currently not usable per cli
+To see all available commans use:
+./vendor/bin/track stats help
 
 Examples:
 
@@ -66,8 +73,11 @@ Total for 'markus' in 2016
 ```
 
 ### How to add manual entries?
-Well, it's a csv file - open the file and add it.   
+Well, it's a csv - open the file and add a new line.   
 Warning: Use "\n" as LF!
+
+### How to delete an entry?
+Well, I think you can guess it now...
 
 ### CSV Format
 
@@ -76,17 +86,13 @@ Warning: Use "\n" as LF!
 2014-07-07,write_readme,stahlstift,2053,id_1588960344
 ```
 
-### Todo
-* Performance test (see dev/createmockdata.php and dev/stats.php)
+## Benchmark / Performance
+
+### to be executed...
+
+## Todos before release
+* Performance test (see dev/createmockdata.php)
+* global installation support (check for the usage strings in stats.php and track.php and build it dynamically)
 * Make installable and usable with composer
-* Refactor CLI argument handling
-* make stats usable from CLI
-* Better readme
 * UnitTests
-* ~~Add typcial code quality tools (phpcs, phpmd, ...)~~
 * Add travis CI
-* Final cleanup and refactoring
-* Start implementing new features 
-  * Stats: support sorting options
-  * Stats: support of exporting reports to html 
-  * ...
