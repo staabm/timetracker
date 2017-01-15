@@ -26,5 +26,4 @@ class FileSystem
             touch($path);
         }
     }
-
 }
