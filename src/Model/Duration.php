@@ -46,7 +46,7 @@ class Duration
 
         if ($hours >= 24) {
             $days = (int)($hours / 24);
-            $hours = $hours % 60;
+            $hours = $hours % 24;
         }
 
         if ($days >= 7) {
