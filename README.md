@@ -95,4 +95,3 @@ Well, I think you can guess it now...
 * global installation support (check for the usage strings in stats.php and track.php and build it dynamically)
 * Make installable and usable with composer
 * UnitTests
-* Add travis CI

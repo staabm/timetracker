@@ -21,6 +21,9 @@ class Duration
 
     /**
      * @return string 01w 04d 20h 10m 34s
+     *
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function getTimeString(): string
     {

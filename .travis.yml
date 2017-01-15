@@ -1,0 +1,17 @@
+language: php
+
+php:
+  - '7.0'
+  - '7.1'
+  - 'nightly'
+
+matrix:
+  allow_failures:
+    - php: 'nightly'
+
+install:
+  - composer install
+
+script:
+  - ./vendor/bin/phpcs
+  - ./vendor/bin/phpmd src text ruleset.xml

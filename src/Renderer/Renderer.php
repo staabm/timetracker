@@ -12,5 +12,4 @@ interface Renderer
      * @param TableRow[] $rows
      */
     public function renderResult(string $title, array $rows);
-
 }
