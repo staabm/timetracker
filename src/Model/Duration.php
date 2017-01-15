@@ -6,6 +6,14 @@ namespace Stahlstift\TimeTracker\Model;
 class Duration
 {
 
+    const SPACE = '    ';
+    const FORMAT = '%02d%s ';
+    const UNIT_WEEKS = 'w';
+    const UNIT_DAYS = 'd';
+    const UNIT_HOURS = 'h';
+    const UNIT_MINUTES = 'm';
+    const UNIT_SECONDS = 's';
+
     /**
      * @var int
      */
@@ -54,12 +62,12 @@ class Duration
             $days = $days % 7;
         }
 
-        $retVal = ($weeks) ? sprintf('%02dw ', $weeks) : '    ';
-        $retVal .= (($weeks || $days)) ? sprintf('%02dd ', $days) : '    ';
-        $retVal .= ($days || $hours) ? sprintf('%02dh ', $hours) : '    ';
-        $retVal .= ($hours || $minutes) ? sprintf('%02dm ', $minutes) : '    ';
-        $retVal .= sprintf('%02ds', $seconds);
+        $retVal = ($weeks) ? sprintf(Duration::FORMAT, $weeks, Duration::UNIT_WEEKS) : Duration::SPACE;
+        $retVal .= (($weeks || $days)) ? sprintf(Duration::FORMAT, $days, Duration::UNIT_DAYS) : Duration::SPACE;
+        $retVal .= ($days || $hours) ? sprintf(Duration::FORMAT, $hours, Duration::UNIT_HOURS) : Duration::SPACE;
+        $retVal .= ($hours || $minutes) ? sprintf(Duration::FORMAT, $minutes, Duration::UNIT_MINUTES) : Duration::SPACE;
+        $retVal .= sprintf(Duration::FORMAT, $seconds, Duration::UNIT_SECONDS);
 
-        return $retVal;
+        return trim($retVal);
     }
 }
