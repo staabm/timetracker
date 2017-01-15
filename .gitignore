@@ -1,5 +1,6 @@
 .idea/*
 benchmark/mockData.csv
+clover.xml
 
 # Created by https://www.gitignore.io/api/phpstorm,netbeans,macos,windows,eclipse,composer,linux
 

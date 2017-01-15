@@ -13,9 +13,7 @@ install:
   - composer install
 
 script:
-  - ./vendor/bin/phpunit --coverage-clover clover.xml
-  - ./vendor/bin/phpcs
-  - ./vendor/bin/phpmd src text ruleset.xml
+  - composer travis
 
 after_script:
   - ./vendor/bin/coveralls -v

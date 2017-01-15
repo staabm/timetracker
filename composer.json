@@ -31,12 +31,27 @@
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.7.1",
-    "phpmd/phpmd" : "2.5.0",
+    "phpmd/phpmd": "2.5.0",
     "satooshi/php-coveralls": "1.0.1",
     "phpunit/phpunit": "5.7.5",
     "mikey179/vfsStream": "1.6.4"
   },
   "config": {
     "bin-compat": "auto"
+  },
+  "scripts": {
+    "travis": [
+      "vendor/bin/phpunit --coverage-clover clover.xml",
+      "@phpcs",
+      "@phpmd"
+    ],
+    "test": [
+      "@phpunit",
+      "@phpcs",
+      "@phpmd"
+    ],
+    "phpunit": "vendor/bin/phpunit",
+    "phpcs": "vendor/bin/phpcs",
+    "phpmd": "vendor/bin/phpmd src text ruleset.xml"
   }
 }

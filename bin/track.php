@@ -53,8 +53,11 @@ $validateMonth = function ($month) {
 
 $argv = array_splice($argv, 1);
 
-$filesystem = new FileSystem();
-$parser = new Parser($filesystem, __DIR__ . '/../timetracker.csv', new GeneratorCollection());
+$parser = new Parser(
+    new FileSystem(),
+    __DIR__ . '/../timetracker.csv',
+    new GeneratorCollection()
+);
 $tracker = new TimeTracker($parser, new Console());
 $tracker->init();
 

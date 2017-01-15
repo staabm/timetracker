@@ -35,7 +35,7 @@ switch ($action) {
             $month = 0;
         }
 
-        $timeTracker->showOverviewPerUser((int)$year, (int)$month);
+        $tracker->showOverviewPerUser((int)$year, (int)$month);
         break;
     case USER_AND_TICKET_OVERVIEW:
         if (isset($argv[2])) {
@@ -52,7 +52,7 @@ switch ($action) {
             $month = 0;
         }
 
-        $timeTracker->showOverviewPerUserAndTicket((int)$year, (int)$month);
+        $tracker->showOverviewPerUserAndTicket((int)$year, (int)$month);
         break;
     case USER_TOTAL:
         $user = (isset($argv[2])) ? $argv[2] : '';
@@ -73,7 +73,7 @@ switch ($action) {
             $month = 0;
         }
 
-        $timeTracker->showTotalForUser($user, (int)$year, (int)$month);
+        $tracker->showTotalForUser($user, (int)$year, (int)$month);
         break;
     case USER_DETAILS:
         $user = (isset($argv[2])) ? $argv[2] : '';
@@ -94,6 +94,6 @@ switch ($action) {
             $month = 0;
         }
 
-        $timeTracker->showOverviewForUserPerTicket($user, (int)$year, (int)$month);
+        $tracker->showOverviewForUserPerTicket($user, (int)$year, (int)$month);
         break;
 }

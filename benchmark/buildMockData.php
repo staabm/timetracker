@@ -4,13 +4,19 @@ declare(strict_types = 1);
 namespace Stahlstift\TimeTracker;
 
 use DateTimeImmutable;
+use Stahlstift\TimeTracker\Utils\FileSystem;
+use Stahlstift\TimeTracker\Utils\GeneratorCollection;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
 // enforce UTC
 date_default_timezone_set('UTC');
 
-$parser = new Parser(__DIR__ . '/mockdata.csv');
+$parser = new Parser(
+    new FileSystem(),
+    __DIR__ . '/mockdata.csv',
+    new GeneratorCollection()
+);
 
 //$entries = 1000000;
 //$entries = 500000;

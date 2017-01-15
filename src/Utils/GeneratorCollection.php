@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Stahlstift\TimeTracker\Utils;
 
 use Generator;
-use Traversable;
+use Iterator;
 
 class GeneratorCollection
 {
@@ -28,14 +28,14 @@ class GeneratorCollection
     }
 
     /**
-     * @param Traversable $traversable
+     * @param Iterator|array $iterator
      * @param string $regex
      *
      * @return Generator
      */
-    public function filterWithRegex(Traversable $traversable, string $regex): Generator
+    public function filterWithRegex($iterator, string $regex): Generator
     {
-        foreach ($traversable as $value) {
+        foreach ($iterator as $value) {
             if (preg_match($regex, $value)) {
                 yield $value;
             }
