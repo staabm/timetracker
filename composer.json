@@ -5,7 +5,7 @@
     "time",
     "tracking"
   ],
-  "license": "GPL3",
+  "license": "MIT",
   "authors": [
     {
       "name": "Markus Oskar Lanz",
