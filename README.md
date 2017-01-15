@@ -91,11 +91,35 @@ Well, I think you can guess it now...
 ```
 
 ## Benchmark / Performance
+### How?
+I created a mock database with random entries between 2014 and 2016 for 5 different users between 15 mins and 60 mins. The benchmark was running on a Macbook Air (late 2010 - Core2Duo 1.4 ghz) with php 7.1.0 and xdebug enabled.   
 
-### to be executed...
+I benchmarked the most complex view in TimeTracker with the Console renderer and print out the average time needed to render.
+
+### Results
+
+Even with 1 000 000 entries in the csv file - it's still usable with 25 seconds on a slow device. Thx to the streams and generators!
+
+| Entries   | Runs  |  Avg / Run |
+|----------:|------:|-----------:|
+| 1 000 000 |   10  |  25s       |
+|   500 000 |   10  |  20s       |
+|   100 000 |   10  |   2s       |
+|    10 000 |  100  |  <0s       |
+
+
+### Run yourself
+```
+#create mockdata (takes some time)
+# (optionally) open the file and modify the values
+php benchmark/buildMockData.php
+
+#run benchmark
+# (optionally) open the file and modify the values
+php benchmark/benchmark.php
+```
 
 ## Todos before release
-* Performance test (see dev/createmockdata.php)
 * global installation support (check for the usage strings in stats.php and track.php and build it dynamically)
 * Make installable and usable with composer
 * UnitTests

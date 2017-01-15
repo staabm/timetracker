@@ -9,7 +9,7 @@ include_once __DIR__ . '/../vendor/autoload.php';
 date_default_timezone_set('UTC');
 
 if (count($argv) <= 1) {
-    echo "Usage: ./vendor/bin/track track username [ticket]" . PHP_EOL;
+    echo "Usage: ./vendor/bin/track time username [ticket]" . PHP_EOL;
     echo "Usage: ./vendor/bin/track stats help" . PHP_EOL;
     exit();
 }
