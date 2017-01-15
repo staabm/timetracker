@@ -10,6 +10,7 @@
 TimeTracker is an ultra simple time tracking tool with no deps and made to live as a require-dev in your project.
 
 [![Build Status](https://travis-ci.org/stahlstift/timetracker.svg?branch=master)](https://travis-ci.org/stahlstift/timetracker)
+[![Coverage Status](https://coveralls.io/repos/stahlstift/timetracker/badge.svg)](https://coveralls.io/r/stahlstift/timetracker)
 
 ## About
 For a new project I need to track my time investment. The existing tools are to heavy and/or are to mighty for my needs. I just want to be able to track my time in a fast and dev friendly way. So I came up with this solution. It can easily handle small teams, it's really fast and most important, you can commit it, because it can be merged by a vcs. 
