@@ -2,18 +2,12 @@
 declare(strict_types = 1);
 
 use Stahlstift\TimeTracker\Model\Duration;
-use Stahlstift\TimeTracker\Parser;
-use Stahlstift\TimeTracker\Renderer\Console;
-use Stahlstift\TimeTracker\TimeTracker;
 
 $user = (isset($argv[1]) ? $argv[1] : '');
 $ticket = (isset($argv[2]) ? $argv[2] : 'none');
 
 $validateUser($user);
 $validateTicket($ticket);
-
-$parser = new Parser(__DIR__ . '/../timetracker.csv');
-$tracker = new TimeTracker($parser, new Console());
 
 $startDuration = microtime(true);
 $dotCounter = 0;

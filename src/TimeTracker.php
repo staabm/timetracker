@@ -5,6 +5,7 @@ namespace Stahlstift\TimeTracker;
 
 use DateTime;
 use DateTimeInterface;
+use Stahlstift\TimeTracker\Exception\Exception;
 use Stahlstift\TimeTracker\Model\Duration;
 use Stahlstift\TimeTracker\Model\TableRow;
 use Stahlstift\TimeTracker\Renderer\Renderer;
@@ -28,6 +29,14 @@ class TimeTracker
     {
         $this->parser = $parser;
         $this->renderer = $renderer;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function init()
+    {
+        $this->parser->init();
     }
 
     /**

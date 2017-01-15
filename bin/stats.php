@@ -1,14 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-use Stahlstift\TimeTracker\Parser;
-use Stahlstift\TimeTracker\Renderer\Console;
-use Stahlstift\TimeTracker\TimeTracker;
-
 $action = (isset($argv[1])) ? $argv[1] : 'help';
-
-$parser = new Parser(__DIR__ . '/../timetracker.csv');
-$timeTracker = new TimeTracker($parser, new Console());
 
 const HELP = 'help';
 const USER_OVERVIEW = 'useroverview';

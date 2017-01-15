@@ -1,6 +1,11 @@
 <?php
 declare(strict_types = 1);
 
+use Stahlstift\TimeTracker\Parser;
+use Stahlstift\TimeTracker\Renderer\Console;
+use Stahlstift\TimeTracker\TimeTracker;
+use Stahlstift\TimeTracker\Utils\FileSystem;
+use Stahlstift\TimeTracker\Utils\GeneratorCollection;
 use Stahlstift\TimeTracker\Validation;
 
 include_once __DIR__ . '/../vendor/autoload.php';
@@ -47,6 +52,11 @@ $validateMonth = function ($month) {
 };
 
 $argv = array_splice($argv, 1);
+
+$filesystem = new FileSystem();
+$parser = new Parser($filesystem, __DIR__ . '/../timetracker.csv', new GeneratorCollection());
+$tracker = new TimeTracker($parser, new Console());
+$tracker->init();
 
 if ($argv[0] == 'stats') {
     include_once __DIR__ . '/stats.php';

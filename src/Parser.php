@@ -4,39 +4,45 @@ declare(strict_types = 1);
 namespace Stahlstift\TimeTracker;
 
 use DateTimeInterface;
+use Stahlstift\TimeTracker\Exception\Exception;
+use Stahlstift\TimeTracker\Utils\FileSystem;
+use Stahlstift\TimeTracker\Utils\GeneratorCollection;
 use Traversable;
 
 class Parser
 {
 
     /**
+     * @var FileSystem
+     */
+    private $fileSystem;
+    /**
      * @var string
      */
     private $dbPath = '';
+    /**
+     * @var GeneratorCollection
+     */
+    private $gen;
 
     /**
+     * @param FileSystem $fileSystem
      * @param string $dbPath
+     * @param GeneratorCollection $gen
      */
-    public function __construct(string $dbPath)
+    public function __construct(FileSystem $fileSystem, string $dbPath, GeneratorCollection $gen)
     {
-        // todo: exception und oder testbar
-        $this->createPath($dbPath);
+        $this->fileSystem = $fileSystem;
         $this->dbPath = $dbPath;
+        $this->gen = $gen;
     }
 
     /**
-     * @param string $path
+     * @throws Exception
      */
-    private function createPath(string $path)
+    public function init()
     {
-        $dir = pathinfo($path, PATHINFO_DIRNAME);
-        if (!is_dir($dir)) {
-            @mkdir($dir, 0777, true);
-        }
-
-        if (!is_file($path)) {
-            touch($path);
-        }
+        $this->fileSystem->createPath($this->dbPath);
     }
 
     /**
@@ -58,44 +64,27 @@ class Parser
     }
 
     /**
-     * @param string $userfilter
+     * @param string $userFilter
      * @param string $ticketFilter
      * @param string $dateFilter
      *
      * @return Traversable
      */
-    public function filter(string $userfilter = '', string $ticketFilter = '', string $dateFilter = ''): Traversable
+    public function filter(string $userFilter = '', string $ticketFilter = '', string $dateFilter = ''): Traversable
     {
-        $readLineFile = function (string $path) {
-            $handle = fopen($path, 'r');
-
-            try {
-                while ($data = stream_get_line($handle, 512, "\n")) {
-                    yield $data;
-                }
-            } finally {
-                fclose($handle);
-            }
-        };
-
-        $regexFilter = function (Traversable $iter, string $regex) {
-            foreach ($iter as $value) {
-                if (preg_match($regex, $value)) {
-                    yield $value;
-                }
-            }
-        };
-
         $regEx = '/^';
 
         $filterArray = [];
         $filterArray[] = ($dateFilter) ? ($dateFilter) : ('.*?');
         $filterArray[] = ($ticketFilter) ? ($ticketFilter) : ('.*?');
-        $filterArray[] = ($userfilter) ? ($userfilter) : ('.*?');
+        $filterArray[] = ($userFilter) ? ($userFilter) : ('.*?');
 
         $regEx .= implode(',', $filterArray);
         $regEx .= '.*/';
 
-        return $regexFilter($readLineFile($this->dbPath), $regEx);
+        return $this->gen->filterWithRegex(
+            $this->gen->readLinesFromFile($this->dbPath),
+            $regEx
+        );
     }
 }
